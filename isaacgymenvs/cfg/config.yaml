@@ -42,6 +42,13 @@ multi_gpu: False
 # disables rendering
 headless: False
 
+assetFileName: "envs/assets/unimal.xml"
+
+output_dir: "/home/smnair/work/embodied-intelligence/runsblahblah"
+
+parent_name: None
+env_spacing: 5.0
+
 # set default task and default training config based on task
 defaults:
   - task: Ant

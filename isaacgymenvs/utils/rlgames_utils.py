@@ -33,7 +33,7 @@ import torch
 import numpy as np
 from typing import Callable
 
-from tasks import isaacgym_task_map
+from isaacgymenvs.tasks import isaacgym_task_map
 
 
 def get_rlgames_env_creator(
@@ -159,7 +159,10 @@ class RLGPUEnv(vecenv.IVecEnv):
         self.env = env_configurations.configurations[config_name]['env_creator'](**kwargs)
 
     def step(self, action):
-        return  self.env.step(action)
+        step_results = self.env.step(action)
+        next_obs, reward, is_done, info = step_results
+        mean_reward = torch.mean(reward)
+        return  step_results
 
     def reset(self):
         return self.env.reset()

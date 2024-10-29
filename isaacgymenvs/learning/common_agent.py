@@ -46,7 +46,7 @@ from rl_games.common import vecenv
 import torch
 from torch import optim
 
-import learning.amp_datasets as amp_datasets
+from  isaacgymenvs.learning import amp_datasets
 
 from tensorboardX import SummaryWriter
 
@@ -62,9 +62,11 @@ class CommonAgent(a2c_continuous.A2CAgent):
         self.bounds_loss_coef = config.get('bounds_loss_coef', None)
         self.clip_actions = config.get('clip_actions', True)
 
-        self.network_path = config.get('network_path', "./runs")
+        self.network_path = config.get('network_path', "./testFolder")
         self.network_path = os.path.join(self.network_path, self.config['name'])
         self.network_path = os.path.join(self.network_path, 'nn')
+
+        print(f"Network Path: {self.network_path}")
         
         net_config = self._build_net_config()
         self.model = self.network.build(net_config)

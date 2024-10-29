@@ -64,8 +64,8 @@ OmegaConf.register_new_resolver('resolve_default', lambda default, arg: default 
 
 @hydra.main(config_name="config", config_path="./cfg")
 def launch_rlg_hydra(cfg: DictConfig):
-
     # ensure checkpoints can be specified as relative paths
+    cfg.experiment = "balhblahSaeejith"
     if cfg.checkpoint:
         cfg.checkpoint = to_absolute_path(cfg.checkpoint)
 
@@ -122,10 +122,11 @@ def launch_rlg_hydra(cfg: DictConfig):
     with open(os.path.join(experiment_dir, 'config.yaml'), 'w') as f:
         f.write(OmegaConf.to_yaml(cfg))
 
-    runner.run({
+    train_config = {
         'train': not cfg.test,
         'play': cfg.test,
-    })
+    }
+    runner.run(train_config)
 
 if __name__ == "__main__":
     launch_rlg_hydra()
